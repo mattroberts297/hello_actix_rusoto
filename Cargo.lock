@@ -832,8 +832,6 @@ dependencies = [
  "actix-web",
  "rusoto_core",
  "rusoto_dynamodb",
- "serde_dynamodb",
- "tokio 1.2.0",
 ]
 
 [[package]]
@@ -1737,17 +1735,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
-]
-
-[[package]]
-name = "serde_dynamodb"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7e9faf5eb2ed31361096d8273a89862d506fe6c6178d86cfb181a3b86e533405"
-dependencies = [
- "bytes 1.0.1",
- "rusoto_dynamodb",
- "serde",
 ]
 
 [[package]]
