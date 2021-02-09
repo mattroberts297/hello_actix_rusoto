@@ -5,6 +5,8 @@ use std::default::Default;
 use rusoto_core::Region;
 use rusoto_dynamodb::{DynamoDb, DynamoDbClient, ListTablesInput};
 
+use tokio_compat_02::FutureExt;
+
 #[get("/tables")]
 async fn tables(_req_body: String) -> impl Responder {
     // DynamoDB.
@@ -20,7 +22,7 @@ async fn tables(_req_body: String) -> impl Responder {
     let client = DynamoDbClient::new(region);
     let list_tables_input: ListTablesInput = Default::default();
 
-    match client.list_tables(list_tables_input).await {
+    match client.list_tables(list_tables_input).compat().await {
         Ok(output) => {
             match output.table_names {
                 Some(table_name_list) => {
