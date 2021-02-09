@@ -1,4 +1,4 @@
-use actix_web::{web, get, post, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 
 use std::default::Default;
 
@@ -6,7 +6,7 @@ use rusoto_core::Region;
 use rusoto_dynamodb::{DynamoDb, DynamoDbClient, ListTablesInput};
 
 #[get("/tables")]
-async fn echo(req_body: String) -> impl Responder {
+async fn tables(_req_body: String) -> impl Responder {
     // DynamoDB.
     let region = match std::env::var("AWS_REGION") {
         Ok(r) => if String::eq(&r, &String::from("local")) {
@@ -46,7 +46,7 @@ async fn echo(req_body: String) -> impl Responder {
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-            .service(echo)
+            .service(tables)
     })
     .bind("0.0.0.0:8080")?
     .run()
